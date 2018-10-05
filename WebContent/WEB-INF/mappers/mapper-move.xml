@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie">
+	<select id="getMovetitle" resultType="java.util.HashMap"> 
+		select distinct title from movie
+	</select>
+	<select id="getTime" resultType="java.util.HashMap" parameterType="java.lang.String"> 
+		select time from movie where title=#{title}
+	</select>
+	
+	
+	
+</mapper>

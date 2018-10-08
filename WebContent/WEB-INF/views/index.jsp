@@ -51,17 +51,14 @@ select, input, option {
 			</p>
 		</form>
 		<script>
-		
-		document.getElementById("f").onsubmit=function(){
+		document.getElementById("f").onsubmit = function( ){
 			var t = document.getElementById("title").value;
 			var m = document.getElementById("time").value;
 			var c = document.getElementById("count").value;
-			if (t==""||m==""||c=="") {
+			if(t =="" || m =="" || c=="") {
 				return false;
 			}
 		}
-		
-		
 		/*
 			var timetableAjax = function(target) {
 				var req = new XMLHttpRequest();
@@ -90,10 +87,12 @@ select, input, option {
 				req.onreadystatechange=function(){
 					if(this.readyState==4){
 						var obj = JSON.parse(this.responseText);
-						console.log(obj);
 						var html="";
 						for(var i =0; i<obj.length; i++) {
-							html += "<option>" + obj[i] +"</option>";
+							var h = obj[i].TIME/100;
+							var m = obj[i].TIME%100;
+							html += "<option value=\""+ obj[i].TIME +"\">" + h +":"+m +"</option>";
+							
 						}
 						document.getElementById("time").innerHTML = html;
 					}

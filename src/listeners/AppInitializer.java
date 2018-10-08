@@ -12,5 +12,4 @@ public class AppInitializer implements ServletContextListener {
 		ServletContext ctx = sce.getServletContext();
 		ctx.setRequestCharacterEncoding("UTF-8");
 	}
-
 }

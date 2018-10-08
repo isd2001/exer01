@@ -36,7 +36,7 @@
 				<span style="font-size: smaller;">
 				비회원 예매서비스 제공을 위한 최소한의 개인정보이며 동의하지 않을 경우 서비스 이용이 제한됩니다.<br/>
 				</span>
-				<input type="checkbox" style="width: auto;"/>동의함
+				<input type="checkbox" style="width: auto;" required/>동의함
 			</p>
 			<p>
 				<button type="submit">로그인</button>

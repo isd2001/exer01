@@ -1,9 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,38 +9,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
-import models.MovieDao;
+import models.ShowtimeDao;
 
 @Controller
 @RequestMapping("/ticket")
 public class TicketController {
 	@Autowired
-	MovieDao mdao;
+	ShowtimeDao showtimeDao;
 	
 	@GetMapping("/index.do")
 	public String indexHandle(ModelMap modelMap) {
-		//String[] data = "협상,명당,서치,상류사회".split(",");
-		//modelMap.put("movies", data);
-		List<Map> list = mdao.getMovetitle();
 		
-		String[] data2=new String[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			Map map = list.get(i);
-			String s= (String)map.get("TITLE");
-			data2[i]=s;
-			System.out.println("mv >"+data2[i]);
-		}
-		modelMap.put("movies", data2);
+		modelMap.put("movies", showtimeDao.getAllTitle());
 		return "index";
 	}
 	
 	@GetMapping("/seat.do")
-	public String indexHandle(@RequestParam Map param, WebRequest req) {
-		System.out.println(param+".."+req);
+	public String indexHandle(@RequestParam Map param, WebRequest req, ModelMap model) {
 		if(req.getAttribute("auth", WebRequest.SCOPE_SESSION) == null) {
 			req.setAttribute("reserve", param, WebRequest.SCOPE_SESSION);
 			return "redirect:/ticket/auth.do";
@@ -59,7 +46,9 @@ public class TicketController {
 	}
 	
 	@PostMapping("/auth.do")
-	public String authHandle(@RequestParam Map param, HttpSession session, Map map) {
+	public String authHandle(@RequestParam Map param, HttpSession session, Map map, 
+			@RequestBody String body) {
+		System.out.println(body);
 		session.setAttribute("user", param);
 		session.setAttribute("auth", true);
 		
